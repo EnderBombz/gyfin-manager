@@ -21,12 +21,12 @@ module.exports = {
             const row = new ActionRowBuilder()
                 .addComponents(new ButtonBuilder()
                 .setCustomId('1032639462938787880')
-                .setLabel('Cyber Emerald')
+                .setLabel('Gyffin Noria')
                 .setStyle(ButtonStyle.Success));
             const embed = new EmbedBuilder()
                 .setColor(5430901)
                 .setTitle('Recrutamento')
-                .setDescription('Envie uma solicitação para recrutamento ao interagir com os botões:\n\n <@&1032639462938787880>');
+                .setDescription('Envie uma solicitação para recrutamento ao interagir com os botões:\n\n <@&329423822543519756>');
             yield interaction.reply({
                 embeds: [embed],
                 components: [row],

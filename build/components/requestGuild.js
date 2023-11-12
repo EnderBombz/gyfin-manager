@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 class RequestGuild {
     constructor(interaction, client, nickname, user) {
-        this.requestChannelId = '1035572412168818718';
+        this.requestChannelId = '1173054230488174703';
         this.nickname = nickname;
         this.init(interaction, client);
     }
@@ -30,7 +30,7 @@ class RequestGuild {
             const recruitEmbed = {
                 fields: [
                     {
-                        name: "Nick no Jogo",
+                        name: "Nome de família",
                         value: this.nickname,
                         inline: true
                     },
@@ -44,7 +44,7 @@ class RequestGuild {
                 title: `Nova solicitação de Cargo: ${interaction.user.username}`,
                 description: "Nova solicitação para o cargo: <@&1032639462938787880>",
                 thumbnail: {
-                    url: "https://i.imgur.com/whsS0mZ.png"
+                    url: "https://i.imgur.com/YwgejNq.png"
                 },
                 color: 5430901
             };

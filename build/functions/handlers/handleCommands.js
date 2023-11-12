@@ -24,8 +24,8 @@ module.exports = (client) => {
                 console.log(`Command: ${command.data.name} has been passe through the handler`);
             }
         }
-        const clientId = '1034470883013697607';
-        const guildId = '1032496332306403409';
+        const clientId = '1165474488117383178';
+        const guildId = '329405337054609429';
         const rest = new REST({ version: '9' }).setToken(process.env.BOT_TOKEN);
         try {
             console.log("started refreshing application (/) commands.");
@@ -35,7 +35,7 @@ module.exports = (client) => {
             });
         }
         catch (err) {
-            console.error(err);
+            console.error("[handleCommands]:", err);
         }
     });
 };

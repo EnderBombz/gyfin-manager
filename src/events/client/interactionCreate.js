@@ -3,9 +3,6 @@ const { default: AcceptModal } = require('../../components/acceptModal');
 const { default: DenyModal } = require('../../components/denyModal');
 const { default: RequestGuild } = require('../../components/requestGuild');
 const { default: RequestModal } = require('../../components/requestModal');
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient()
-
 
 module.exports = {
     name: 'interactionCreate',

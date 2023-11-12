@@ -17,7 +17,7 @@ class DenyModal {
     init(interaction, client) {
         return __awaiter(this, void 0, void 0, function* () {
             // Create the modal
-            console.log(interaction);
+            console.log("[OPENING_DENY_MODAL]:", interaction);
             const modal = new ModalBuilder()
                 .setCustomId('denyRequestModal')
                 .setTitle('Relatório de recusa');

@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,18 +7,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 const { Events, InteractionType } = require('discord.js');
 const { default: AcceptModal } = require('../../components/acceptModal');
 const { default: DenyModal } = require('../../components/denyModal');
 const { default: RequestGuild } = require('../../components/requestGuild');
 const { default: RequestModal } = require('../../components/requestModal');
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
 module.exports = {
     name: 'interactionCreate',
     execute(interaction, client) {
         return __awaiter(this, void 0, void 0, function* () {
+            const serverId = "329405337054609429";
+            const role_gyfinMember = "329423822543519756";
             if (interaction.isChatInputCommand()) {
                 const { commands } = client;
                 const { commandName } = interaction;
@@ -77,52 +75,40 @@ module.exports = {
                 if (interaction.customId === 'acceptRequestModal') {
                     const response = interaction.fields.getTextInputValue('welcomeMessage');
                     console.log(response);
-                    const channel = client.channels.cache.get('1035572412168818718');
-                    channel.messages.fetch(interaction.message.id).then(msg => {
-                        msg.edit({ components: [] });
+                    console.log("[MESSAGE_ID]:", interaction.message.id);
+                    interaction.message.delete().catch(error => {
+                        console.error('Erro ao excluir a mensagem:', error);
                     });
-                    client.users.fetch(interaction.message.content, false).then((user) => {
+                    console.log("[interaction.message.content]:", interaction.message.content);
+                    const requestedUserId = interaction.message.content;
+                    client.users.fetch(requestedUserId, false).then((user) => {
                         user.send(response);
                     });
                     interaction.reply({
-                        content: `Sucesso ao atribuir o cargo <@&1032639462938787880> para <@${interaction.message.content}>`,
+                        content: `Sucesso ao atribuir o cargo <@&${role_gyfinMember}> para <@${interaction.message.content}>`,
                         ephemeral: false
                     });
-                    const guild = client.guilds.cache.get("1032496332306403409");
-                    const member = guild.members.cache.get(interaction.user.id);
-                    member.roles.add("1032639462938787880");
-                    function main() {
-                        return __awaiter(this, void 0, void 0, function* () {
-                            const Clan = yield prisma.Clan.create({
-                                data: {
-                                    user_id: `${interaction.message.content}`,
-                                    role_id: '1032639462938787880'
-                                },
-                            });
-                            console.log(Clan);
-                        });
-                    }
-                    main()
-                        .then(() => __awaiter(this, void 0, void 0, function* () {
-                        yield prisma.$disconnect();
-                    }))
-                        .catch((e) => __awaiter(this, void 0, void 0, function* () {
-                        console.error(e);
-                        yield prisma.$disconnect();
-                        process.exit(1);
-                    }));
+                    const guild = client.guilds.cache.get(serverId);
+                    const member = guild.members.cache.get(requestedUserId);
+                    console.log("[USER]:", interaction.user);
+                    member.roles.add(role_gyfinMember).then(() => {
+                        console.log(`Cargo atribuído com sucesso ao usuário ${member.user.tag}`);
+                    })
+                        .catch(error => {
+                        console.error('Erro ao atribuir cargo:', error);
+                    });
                 }
                 if (interaction.customId === 'denyRequestModal') {
                     const response = interaction.fields.getTextInputValue('denyMessage');
-                    console.log(response);
-                    const channel = client.channels.cache.get('1035572412168818718');
-                    channel.messages.fetch(interaction.message.id).then(msg => {
-                        msg.edit({ components: [] });
+                    const channel = client.channels.cache.get('1173058933137616916');
+                    console.log("[MESSAGE_ID]:", interaction.message.id);
+                    interaction.message.delete().catch(error => {
+                        console.error('Erro ao excluir a mensagem:', error);
                     });
                     const denyEmbed = {
                         fields: [
                             {
-                                name: "Nick no Jogo",
+                                name: "Nome de família",
                                 value: interaction.message.embeds[0].fields[0].value,
                                 inline: true
                             },
@@ -134,19 +120,20 @@ module.exports = {
                         ],
                         timestamp: new Date().toISOString(),
                         title: `Solicitação de cargo recusada`,
-                        description: `${response} | Cargo: <@&1032639462938787880>`,
+                        description: `${response} | Cargo: <@&329423822543519756>`,
                         thumbnail: {
-                            url: "https://i.imgur.com/whsS0mZ.png"
+                            url: "https://i.imgur.com/YwgejNq.png"
                         },
                         color: 16711680,
                     };
-                    const channelDeny = client.channels.cache.get('1035626060223631501');
+                    const channelDeny = client.channels.cache.get('1173058933137616916');
                     yield channelDeny.send({
                         content: `${interaction.user.id.toString()}`,
                         embeds: [denyEmbed]
                     });
+                    console.log("[131]", response);
                     interaction.reply({
-                        content: `Cargo <@&1032639462938787880> recusado ao atribuir para <@${interaction.message.content}>, motivo enviado para <#1035626060223631501>`,
+                        content: `Cargo <@&329423822543519756> recusado ao atribuir para <@${interaction.message.content}>, motivo enviado para <#1173058933137616916>`,
                         ephemeral: true
                     });
                 }

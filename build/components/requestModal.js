@@ -25,7 +25,7 @@ class RequestModal {
             const nicknameInput = new TextInputBuilder()
                 .setCustomId('nickname')
                 // The label is the prompt the user sees for this input
-                .setLabel("Digite seu nome dentro do jogo")
+                .setLabel("Digite seu nome de família")
                 // Short means only a single line of text
                 .setStyle(TextInputStyle.Short);
             // An action row only holds one text input,

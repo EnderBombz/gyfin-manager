@@ -42,7 +42,7 @@ class RequestGuild {
                 ],
                 timestamp: new Date().toISOString(),
                 title: `Nova solicitação de Cargo: ${interaction.user.username}`,
-                description: "Nova solicitação para o cargo: <@&1032639462938787880>",
+                description: "Nova solicitação para o cargo: <@&329423822543519756>",
                 thumbnail: {
                     url: "https://i.imgur.com/YwgejNq.png"
                 },
